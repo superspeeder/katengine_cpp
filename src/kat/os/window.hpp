@@ -21,7 +21,10 @@ namespace kat::os {
 
     struct VideoMode {
         glm::uvec2 size;
-        ColorDepth colorDepth;
+        ColorDepth color_depth;
+        unsigned int refresh_rate;
+
+        static VideoMode from(const GLFWvidmode *vidmode);
     };
 
     namespace wm {
@@ -37,14 +40,20 @@ namespace kat::os {
 
         struct FullscreenExclusive {
             unsigned int monitor = 0;
-            std::optional<VideoMode> videoMode;
+            std::optional<VideoMode> video_mode;
         };
     } // namespace wm
 
     using WindowMode = std::variant<wm::Windowed>;
 
+    struct Monitor {
+        GLFWmonitor* handle;
+
+        VideoMode get_video_mode();
+    };
+
     class WindowSystem {
-        std::vector<GLFWmonitor *> m_Monitors;
+        std::vector<GLFWmonitor *> monitors;
 
       public:
         WindowSystem();
@@ -61,7 +70,7 @@ namespace kat::os {
         WindowMode windowMode = wm::Windowed({800, 600});
         bool resizable = false;
         bool visible = true;
-        // decorated is in wm::Windowed as it has no effect outside of windowed mode.
+        // decorated is in wm::Windowed as it has no effect outside windowed mode.
         bool auto_iconify = true;
         bool floating = false;
         bool maximized = false;
@@ -72,6 +81,7 @@ namespace kat::os {
     };
 
     class Window {
+        GLFWwindow* window;
 
       public:
     };

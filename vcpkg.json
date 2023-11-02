@@ -1,3 +1,10 @@
 {
-  "dependencies": []
+  "builtin-baseline" : "768619a21ef7fb6c5d029a7b141bb7fcef579336",
+  "dependencies" : [ {
+    "name" : "glm",
+    "version>=" : "2023-06-08"
+  }, {
+    "name" : "glfw3",
+    "version>=" : "3.3.8#2"
+  } ]
 }
